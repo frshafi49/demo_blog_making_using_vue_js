@@ -24,9 +24,11 @@
       <select v-model="blog.author">
         <option v-for="(author,i) in authors" v-bind:key="i">{{author}}</option>
       </select>
+      <button v-on:click.prevent="post">Add Blog</button>
     </form>
 
-    <button v-on:click="post()">Add Blog</button>
+
+
 
     <div v-if="submitted">
       <h3>Thank for submitted the post!</h3>
@@ -45,7 +47,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
@@ -62,28 +64,33 @@ export default {
   },
   methods: {
     post: function() {
-    //   const post = await axios.post(
-    //     "https://jsonplaceholder.typicode.com/posts",
-    //     {
-    //       title: this.blog.title,
-    //       body: this.blog.content,
-    //       userId: 1
-    //     }
-    //   );
+      // calling async await way
+      // const post = await axios.post(
+      //   "https://jsonplaceholder.typicode.com/posts",
+      //   {
+      //     title: this.blog.title,
+      //     body: this.blog.content,
+      //     userId: 1
+      //   }
+      // );
 
-      axios
+      this.$http
         .post("https://jsonplaceholder.typicode.com/posts", {
-           title: this.blog.title,
+          title: this.blog.title,
           body: this.blog.content,
           userId: 1
         })
-        .then(function(response) {
-          //console.log(response);
-        })
-        .catch(function(error) {
-          //console.log(error);
-        });
+        .then(response => {
 
+          console.log(response.data);
+          console.log("hello");
+
+          this.submitted = true;
+          console.log("submitted", this.blog);
+        })
+        .catch(function(error){
+          console.log(error);
+        });
     }
   }
 };
@@ -130,4 +137,6 @@ textarea {
 #checkboxes label {
   display: inline-block;
 }
+
+
 </style>
