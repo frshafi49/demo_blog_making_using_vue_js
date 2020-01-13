@@ -12,7 +12,8 @@ Vue.config.productionTip = false
 
 
 const router = new VueRouter({
-  routes: Routes
+  routes: Routes,
+  mode:'history'
 })
 
 // custom global directives starts
@@ -52,9 +53,9 @@ Vue.filter('to-uppercase',val=>{
 });
 
 
-// Vue.filter('snippet',val=>{
-//   return val.slice(0,100) + '...';
-// });
+Vue.filter('snippet',val=>{
+  return val.slice(0,100) + '...';
+});
 
 //Filter ends
 
