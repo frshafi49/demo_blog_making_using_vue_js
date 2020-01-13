@@ -1,10 +1,9 @@
 <template>
   <div v-theme:column="'narrow'" id="show-blogs">
-    <h1>All Blog Articles</h1>
+    <h1>List Blog Titles</h1>
     <input type="text" v-model="search" placeholder="search blogs">
     <div class="single-blog" v-for="(blog,i) in filteredBlog" v-bind:key="i">
       <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
-      <article>{{blog.body | snippet}}</article>
     </div>
   </div>
 </template>
@@ -30,11 +29,7 @@ export default {
   },
 
   computed:{
-    // filteredBlog:function(){
-    //   return this.blogs.filter((blog)=>{
-    //     return blog.title.match(this.search);
-    //   })
-    // }
+
   },
 
   // filters registering locally
@@ -52,7 +47,6 @@ export default {
       }
     }
   },
-
   mixins:[searchMixin]
 
 };
