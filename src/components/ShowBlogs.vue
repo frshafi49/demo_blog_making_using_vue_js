@@ -6,7 +6,7 @@
       <router-link v-bind:to="'/blog/'+ blog.id ">
         <h2>{{blog.title | to-uppercase}}</h2>
       </router-link>
-      <article>{{blog.body | snippet }}</article>
+      <article>{{blog.content | snippet }}</article>
     </div>
   </div>
 </template>
@@ -22,12 +22,21 @@ export default {
     };
   },
   created() {
-    this.$http.get("https://jsonplaceholder.typicode.com/posts").then(res => {
-      console.log("data", res.data);
+    this.$http
+      .get("https://vuejs-firebase-blog-server.firebaseio.com/posts.json")
+      .then(res => {
+        let data = res.data;
+        // console.log("data", data);
+        let blogsArray = [];
+        for (let key in data) {
+          // console.log(data[key]);
+          data[key].id = key;
+          blogsArray.push(data[key]);
+        }
+        // console.log('blogs array',blogsArray);
+        this.blogs = blogsArray;
 
-      this.blogs = res.data.slice(0, 10);
-      console.log("blogs", this.blogs);
-    });
+      });
   },
 
   computed: {

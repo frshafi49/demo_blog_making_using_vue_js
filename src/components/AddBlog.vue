@@ -75,18 +75,10 @@ export default {
       // );
 
       this.$http
-        .post("https://jsonplaceholder.typicode.com/posts", {
-          title: this.blog.title,
-          body: this.blog.content,
-          userId: 1
-        })
+        .post("https://vuejs-firebase-blog-server.firebaseio.com/posts.json",this.blog)
         .then(response => {
-
           console.log(response.data);
-          console.log("hello");
-
           this.submitted = true;
-          console.log("submitted", this.blog);
         })
         .catch(function(error){
           console.log(error);
